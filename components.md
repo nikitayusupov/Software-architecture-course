@@ -14,31 +14,30 @@ AddElementTag("storage", $shape=RoundedBoxShape(), $bgColor="lightSkyBlue", $fon
 Person(admin, "Администратор")
 Person(user, "Пользователь")
 
-System_Ext(temp, "Посылки")
-System_Ext(door, "Доставки")
+System_Ext(package, "Посылки")
+System_Ext(delivery, "Доставки")
 
 System_Boundary(smart_house, "Сервис доставки") {
    Container(app, "Клиентское веб-приложение", "html, JavaScript", "Сайт сервиса доставки")
-   Container(temp_service, "Сервис посылок", "C++", "Сервис управлениям посылками", $tags = "microService") 
-    Container(client_service, "Сервис авторизации", "C++", "Сервис управления пользователями", $tags = "microService")    
-   Container(door_service, "Сервис доставок", "C++", "Сервис управления доставками", $tags = "microService")       
+   Container(package_service, "Сервис посылок", "C++", "Сервис управлениям посылками", $tags = "microService") 
+   Container(client_service, "Сервис авторизации", "C++", "Сервис управления пользователями", $tags = "microService")    
+   Container(delivery_service, "Сервис доставок", "C++", "Сервис управления доставками", $tags = "microService")       
    ContainerDb(db, "Данные сервиса доставки", "MySQL", "Хранение данных сайта", $tags = "storage")
-   
 }
 
 Rel_D(admin, app, "Добавление/просмотр информации о пользователях")
 Rel_D(user, app, "Добавление посылки, оформление доставки")
 
-Rel_D(app,client_service, "Создание пользователя", "http://localhost/person ")
+Rel_D(app, client_service, "Создание пользователя", "http://localhost/person")
 Rel_D(client_service, db, "INTSERT/SELECT/UPDATE", "SQL")
 
-Rel_D(app,door_service,"Работа с доставками","http://localhost/door ")
-Rel_L(door_service,door,"Запрос информации о доставках")
-Rel_D(door_service,db,"INTSERT/SELECT/UPDATE","SQL")
+Rel_D(app, delivery_service, "Работа с доставками", "http://localhost/delivery")
+Rel_L(delivery_service, delivery, "Запрос информации о доставках")
+Rel_D(delivery_service, db, "INTSERT/SELECT/UPDATE","SQL")
 
-Rel_D(app,temp_service,"Работа с посылками","http://localhost/еуьз ")
-Rel(temp_service,temp,"Запрос информации о посылках")
-Rel_D(temp_service,db,"INTSERT/SELECT/UPDATE","SQL")
+Rel_D(app, package_service, "Работа с посылками", "http://localhost/package")
+Rel(package_service, package, "Запрос информации о посылках")
+Rel_D(package_service, db, "INTSERT/SELECT/UPDATE", "SQL")
 
 
 @enduml
