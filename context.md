@@ -20,7 +20,6 @@ Rel(user, delivery_app, "Добавление посылки, оформлени
 Rel_D(delivery_app, package, "Запрос информации о посылках")
 Rel_D(delivery_app, delivery, "Запрос информации о доставках")
 
-
 @enduml
 ```
 ## Назначение систем
